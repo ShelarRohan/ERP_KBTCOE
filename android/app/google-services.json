@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "931248138056",
+    "project_id": "erpkbtcoe-66e80",
+    "storage_bucket": "erpkbtcoe-66e80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931248138056:android:fe3f2760fe588ec62db57d",
+        "android_client_info": {
+          "package_name": "com.example.erp_kbtcoe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931248138056-n2e468904pb7l56p0en14bg01km5t2rm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA60lVXrzdPnXJhNwSBSFLjmjGONRVOBUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931248138056-n2e468904pb7l56p0en14bg01km5t2rm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+print(" r = ");
+    print(r);
+    print("r.body =");
+    print(r.body);
+    print("r type= ");
+    print(r.runtimeType);
+    print("r.body type= ");
+    print(r.body.runtimeType);
+
+    if (r.statusCode == 200) {
+      print("Inside IFFFFFFFFFFF");
+      // print("details type");
+      // print(details.runtimeType);
+
+      print(jsonDecode(r.body));
+      print(jsonDecode(r.body).runtimeType);
+      // var det = r.body;
+      //  json.decode(response.body).cast<ObjectName>();
+      // List<String> result = det.split(',');
+      // print("Result =");
+      // print(result);
+      final decoded = jsonDecode(r.body) as List<dynamic>;
+      final output =
+          decoded.map((e) => .fromJson(e as Map<String, dynamic>)).toList();
+      // Map<String, dynamic> rdetails = json.decode(r.body);
+      // rdetails = jsonDecode(r.body).cast<List>();
+      print("DETAILS :");
+      print(output);
+      // _rlist = e.values.toList();
+      // print(_rlist);
+      notifyListeners();
+    }
+    // details = json.decode(r.body);
+    // _list = details.values.toList();
+  }
+}

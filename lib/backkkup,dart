@@ -1,0 +1,147 @@
+// ignore: file_names
+import 'package:erp_project/Widgets/Attendance/AttendanceCard.dart';
+import 'package:erp_project/Widgets/BouncingButton.dart';
+import 'package:erp_project/Widgets/Exams/ResultCard.dart';
+import 'package:erp_project/api/api.dart';
+import 'package:erp_project/api/semmodal/sem.dart';
+import 'package:erp_project/student/Exam/DetailResult.dart';
+import 'package:flutter/material.dart';
+
+class SemResult extends StatefulWidget {
+  // var semresult_data;
+  List<Sem> sems;
+
+  SemResult({
+    Key? key,
+    required this.sems,
+  }) : super(key: key);
+  @override
+  _SemResultState createState() => _SemResultState(sems);
+}
+
+class _SemResultState extends State<SemResult> {
+  // var semresult_data;
+  List<Sem> sems;
+
+  _SemResultState(this.sems);
+  @override
+  Widget build(BuildContext context) {
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    print(sems[0].SEAT_NO);
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
+    return Scaffold(body: Container(
+      child: FutureBuilder<List<Sem>>(builder: (context, data) {
+        if (data.connectionState != ConnectionState.waiting && data.hasData) {
+          var semList = data.data;
+          return ListView.builder(
+              itemCount: semList!.length,
+              itemBuilder: (context, index) {
+                var semData = semList[index];
+                print("data");
+                print("data");
+                print("data");
+                print("data");
+                print(semData.YR);
+                print(semData.SRNO);
+                print(semData.SGPA);
+                return ResultCard(
+                    sem: semData
+                        .YR, //sem is treted as subject code here, finalization after api integration
+                    subject: semData.SRNO,
+                    percentage: semData
+                        .SGPA // percentage == cgpa , finalizationn after api integration
+                    );
+              });
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }),
+    ));
+  }
+}
+
+
+
+
+
+
+// ignore: file_names
+import 'package:erp_project/Widgets/Attendance/AttendanceCard.dart';
+import 'package:erp_project/Widgets/BouncingButton.dart';
+import 'package:erp_project/Widgets/Exams/ResultCard.dart';
+import 'package:erp_project/student/Exam/DetailResult.dart';
+import 'package:flutter/material.dart';
+
+class SemResult extends StatefulWidget {
+  var semresult_data;
+  SemResult({
+    Key? key,
+    required this.semresult_data,
+  }) : super(key: key);
+  @override
+  _SemResultState createState() => _SemResultState(semresult_data);
+}
+
+class _SemResultState extends State<SemResult> {
+  var semresult_data;
+  _SemResultState(this.semresult_data);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: semresult_data.length,
+        itemBuilder: (context, index) {
+          var userData = semresult_data[index],
+        Container: [
+          Bouncing(
+            onPress: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ExamResult(),
+                  ));
+            }
+            child: ResultCard(
+              sem:
+                  "54544", //sem is treted as subject code here, finalization after api integration
+              subject: "Ubiqutious computing",
+
+              percentage:
+                  "9.42", // percentage == cgpa , finalizationn after api integration
+            ),
+          ),
+          // ResultCard(
+          //   sem:
+          //       "41766", //sem is treted as subject code here, finalization after api integration
+          //   subject: "IOT",
+          //   percentage:
+          //       "8.00", // percentage == cgpa , finalizationn after api integration
+          // ),
+          // ResultCard(
+          //   sem:
+          //       "457886", //sem is treted as subject code here, finalization after api integration
+          //   subject: "STQA",
+          //   percentage:
+          //       "7.23", // percentage == cgpa , finalizationn after api integration
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
