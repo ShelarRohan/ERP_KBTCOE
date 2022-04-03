@@ -1,5 +1,6 @@
 import 'package:erp_kbtcoe/main.dart';
 import 'package:erp_kbtcoe/services/studentsharedpreference.dart';
+import 'package:erp_kbtcoe/student/studentonboardscreen/StudentOnboardingscreen1.dart';
 import 'package:erp_kbtcoe/student/studentonboardscreen/StudentOnboardingscreen3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,135 +22,40 @@ class StudentOnboardingscreen2 extends StatefulWidget {
 
   @override
   State<StudentOnboardingscreen2> createState() =>
-      _StudentOnboardingscreen2State(kbtug);
+      _StudentOnboardingscreen2State(kbtug, mtoken!);
 }
 
 var student_profile;
 
 class _StudentOnboardingscreen2State extends State<StudentOnboardingscreen2> {
   get scaffoldKey => null;
-  late AndroidNotificationChannel channel;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  // late AndroidNotificationChannel channel;
+  // late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  late String mtoken;
+  String? mtoken;
 
   String kbtug;
 
-  _StudentOnboardingscreen2State(this.kbtug);
-
-  @override
-  void initstate() {
-    super.initState();
-
-    requestPermission();
-
-    loadFCM();
-
-    listenFCM();
-
-    getToken();
-
-    FirebaseMessaging.instance.subscribeToTopic("Animal");
-  }
+  _StudentOnboardingscreen2State(this.kbtug, this.mtoken);
 
   void getTokenFromFirestore() async {}
-
-  void requestPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
-    } else {
-      print('User declined or has not accepted permission');
-    }
-  }
 
   // void saveToken(String token) async {
   //   await FirebaseFirestore.instance.collection("UserTokens").doc("User1").set({
   //     'token': token,
   //   });
   // }
+//  void getToken() async {
+//     await FirebaseMessaging.instance.getToken().then(
+//             (token) {
+//               setState(() {
+//                 mtoken = token;
+//               });
 
-  void getToken() async {
-    await FirebaseMessaging.instance.getToken().then((token) {
-      setState(() {
-        mtoken = token!;
-      });
-
-      print(
-          "############################################################################# This is the token #############################################################");
-      print(mtoken);
-
-      // saveToken(token!);
-    });
-  }
-
-  void listenFCM() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null && !kIsWeb) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              // TODO add a proper drawable resource to android, for now using
-              //      one that already exists in example app.
-              icon: 'launch_background',
-            ),
-          ),
-        );
-      }
-    });
-  }
-
-  void loadFCM() async {
-    if (!kIsWeb) {
-      channel = const AndroidNotificationChannel(
-        'high_importance_channel', // id
-        'High Importance Notifications', // title
-        importance: Importance.high,
-        enableVibration: true,
-      );
-
-      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-      /// Create an Android Notification Channel.
-      ///
-      /// We use this channel in the `AndroidManifest.xml` file to override the
-      /// default FCM channel to enable heads up notifications.
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel);
-
-      /// Update the iOS foreground notification presentation options to allow
-      /// heads up notifications.
-      await FirebaseMessaging.instance
-          .setForegroundNotificationPresentationOptions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
-    }
-  }
+//               saveToken(token!);
+//             }
+//     );
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -158,9 +64,10 @@ class _StudentOnboardingscreen2State extends State<StudentOnboardingscreen2> {
     print("End In widget");
     student_profile = Student_Profile_Api(kbtug);
 
-    print("//////////////////////////////////////////////////////////////////");
-    print("//////////////////////////////////////////////////////////////////");
-    print("//////////////////////////////////////////////////////////////////");
+    print(
+        "2222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
+    print(
+        "333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
     print(student_profile);
     return Scaffold(
       key: scaffoldKey,
@@ -243,7 +150,7 @@ class _StudentOnboardingscreen2State extends State<StudentOnboardingscreen2> {
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 StudentOnboardingscreen3(
-                              token: mtoken,
+                              token: mtoken!,
                               id: student_profile.student_data[0],
                               name: student_profile.student_data[1],
                               dob: student_profile.student_data[6],

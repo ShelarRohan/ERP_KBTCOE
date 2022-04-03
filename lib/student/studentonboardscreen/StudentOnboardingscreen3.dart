@@ -43,15 +43,15 @@ class _StudentOnboardingscreen3State extends State<StudentOnboardingscreen3> {
   late AndroidNotificationChannel channel;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  late String mtoken;
+  // String? mtoken = " ";
 
   _StudentOnboardingscreen3State(
       this.id, this.name, this.dob, this.academic_year, this.token);
 
-  @override
-  void initstate() {
-    super.initState();
-  }
+  // @override
+  // void initstate() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
